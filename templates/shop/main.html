@@ -1,0 +1,161 @@
+{% load static %}
+<div id="shop">
+    <div class="header">
+        <div class="message success" style="display: none;">Скопировано в буфер!</div>
+
+        <div class="greeting">
+            <div class="greeting__content">
+                <img src="{% get_media_prefix %}main/mishandro.png" class="greeting__image">
+                <div class="dialogue d1">
+                    <img src="{% get_media_prefix %}main/dialogue1.png">
+                    <div>
+                        {{ messages.leftWords }}
+                    </div>
+                </div>
+                <div class="greeting__info">
+                    <div class="greeting__title">
+                        <span class="gradient">
+                            <span style="text-shadow: 0px 0px 20px #0000ff73;">PIXЕ</span><span style="text-shadow: 0 0 20px #612c6f73;">LC</span><span style="text-shadow: 0 0 20px #ff000073;">ORE</span>
+                        </span>
+                    </div>
+                    <div class="greeting__server">
+                        <div class="server__ip">
+                            IP: <span id="ip">{{ messages.IP }}</span>
+                        <br><br>Онлайн: <span id="online">{{ online }}</span></div>
+                    </div>
+                    <div class="greeting__description">
+
+                    </div>
+                </div>
+                <div class="dialogue d2">
+                    <img src="{% get_media_prefix %}main/dialogue2.png">
+                    <div>
+                        {{ messages.rightWords }}
+                    </div>
+                </div>
+                <img src="{% get_media_prefix %}main/coolgrebo4ek.png" class="greeting__image">
+            </div>
+        </div>
+    </div>
+    <div class="shop__main">
+        <div class="wrapper">
+            <h2>
+                <span class="shop">Магазин</span>
+                <span class="sub-text pseudo-opacity">{{ messages.currency }}</span>
+            </h2>
+
+            <div id="categories">
+                <ul class="categories">
+                    {% for c in categories %}
+                        <li data-category-id="{{ c.id }}">
+                            <span class="label">
+                                <i class="icon-{{ c.icon }}"></i>
+                            </span>
+                            <span class="title">{{ c.name }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <ul class="subcategories">
+                    <i class="icon-subcategories"></i>
+                    {% for s in subcategories %}
+                        <li data-subcategory-id="{{ s.id }}" data-category-id="{{ s.category.id }}"
+                            {% if s.check_to_buy != "-" %}data-check{% endif %}>
+                            <span class="label">
+                                <i class="icon-{{ s.icon }}"></i>
+                            </span>
+                            <span class="title">{{ s.name }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div id="items" class="cards inner">
+                {% for p in products %}
+                    <div class="card animate"
+                         data-category-id="{{ p.subcategory.category.id }}:{{ p.subcategory.id }}"
+                         data-item-id="{{ p.id }}">
+                        <div class="image" style="background-image:url({% get_media_prefix %}{{ p.image }})"></div>
+                        <div class="description">
+                            <span style="display: none">{{ p.description }}</span>
+                            <div class="sub-text">
+                                <i class="icon-{{ p.subcategory.category.icon }}"></i>
+                                <i class="icon-{{ p.subcategory.icon }}"></i> {{ p.subcategory.name }}
+                            </div>
+                            <div class="name">{{ p.name }}</div>
+                            <div class="cost">{{ p.price }}₽</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="modal" style="display: none;">
+            <div class="dialog">
+                <div class="btn"></div>
+                <div class="modal__wrapper">
+                    <div class="modal__container animate">
+                        <div class="modal__details" data-item-id>
+                            <h2 class="modal__header"></h2>
+                            <div class="details__content">
+                                <p class="pre-formatted"></p>
+                            </div>
+                        </div>
+                        <div class="modal__purchase">
+                            <h2 class="modal__header">Покупка товара</h2>
+                            <div class="form">
+
+                                <div class="form__element">
+                                    <span id="i1" class="input__clear"></span>
+                                    <input type="text" id="nickname" autocomplete="off" placeholder="Игровой никнейм" class="form__input">
+                                </div>
+                                <div class="form__element">
+                                    <span id="i2" class="input__clear"></span>
+                                    <input type="text" id="coupon" autocomplete="off" placeholder="Купон на скидку" class="form__input">
+                                </div>
+                            </div>
+                            <div class="modal__cost">
+                                <div class="cost__text">Итого:
+                                <div id="sale"></div>
+                            </div>
+                            <div class="cost__value">
+                                <h2></h2>
+                            </div>
+                            </div>
+                            <button class="modal__buy-button"><span>Купить</span></button>
+                        </div>
+                    </div>
+
+                    <div class="modal__methods" style="display: none">
+
+                        <div class="arrow__back">
+                            <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                                    <polygon class="arrow__back-pl" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                                    <polygon class="arrow__back-pl-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                                    <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <div class="modal__header">Выберите способ оплаты</div>
+
+                        <ul class="modal__list">
+                            <li><div class="modal__btn" data-type="qiwi" title="Qiwi"></div></li>
+                            <li><div class="modal__btn" data-type="cards" title="Карты"></div></li>
+                            <li><div class="modal__btn" data-type="yoomoney" title="ЮMoney"></div></li>
+                            <li><div class="modal__btn" data-type="mts" title="МТС"></div></li>
+                            <li><div class="modal__btn" data-type="megafon" title="Мегафон"></div></li>
+                            <li><div class="modal__btn" data-type="beeline" title="Билайн"></div></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="notices is-bottom">
+        </div>
+    </div>
+    <span id="info__products" style="display: none">{{ info }}</span>
+</div>
+<script type="text/javascript" src="{% static 'js/shop!!!.js' %}"></script>
