@@ -1,4 +1,8 @@
+{% load static %}
 <div id="privacy" class="info__content">
+    <div class="point not_anim link" onclick="window.location = '{% static 'docs/privacy.pdf' %}'">
+        <span class="point-title">Открыть документ</span>
+    </div>
     <p style="text-align: center">Персональные данные <i>Пользователя / Покупателя</i> обрабатываются в соответствии с ФЗ «О персональных данных» № 152-ФЗ.</p><br>
     <strong><i>Я (Покупатель)</i> принимаю условия политику обработки персональных данных.</strong><br>
     1. При покупке на Сайте <i>Пользователь</i> предоставляет следующую информацию: Никнейм.

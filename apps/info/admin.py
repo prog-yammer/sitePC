@@ -63,7 +63,7 @@ class SiteMessagesAdmin(admin.ModelAdmin):
             "title_rules": "Заголовок для правил",
             "title_public-offer": "Заголовок для публичной оферты",
             "title_privacy": "Заголовок для политики обработки перс данных",
-            "title_howtobuy": "Инструкция",
+            "title_how-to-buy": "Инструкция",
         }
         try:
             s = SiteMessages.objects.all()
